@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+  <title>Antonio Lee</title>
+  <meta content="Personal website for Antonio Lee" name="description">
+  <meta content="HTML, CSS, JavaScript" name="keywords">
+{% endblock title %}
+
+{% block content %}
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <h1>Antonio Lee</h1>
+
+	      <p>Hello! Welcome to my page. I will use this to post any cool coding projects or findings. <br>
+
+	      Three facts about me:  <br>
+	      I am a Georgia Tech alumni. Go Jackets! <br>
+			  I love playing and watching soccer. My favorite team is Arsenal. <br>
+			  I grew up in three different countries - Korea, Mexico, and the United States. <br>
+			  I am currently looking for a Software Engineer or Data Engineer position. Please <b><a href="mailto:leeantonio18@gmail.com">contact me</a></b> if you want my resume!
+	      	</p>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Fantasy Project Section ======= -->
+    <section id="current_project" class="current_project section-bg">
+      <div class="container">
+        {% for post in posts %}
+        <div class="section-title">
+          <h2> {{ post.title }} </h2>
+        </div>
+          <p> {{post.content}} <br>
+          {{fplsim}}
+          </p>
+          {% endfor %}
+      </div>
+    </section><!-- End Fantasy Project Section -->
+
+{% endblock content %}
