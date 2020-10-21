@@ -40,7 +40,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('No new data loaded - position '))
 
     def playerETL(self):
-        storage_path = getattr(settings, 'MEDIA_URL', None)
+        storage_path = getattr(settings, 'MEDIA_ROOT', None)
         # django storage version
         # book = default_storage.open(os.path.join(storage_path, '2017-18/player_idlist.csv'), 'r')
         with open(os.path.join(storage_path, '2017-18/player_idlist.csv'), encoding="utf8") as playercsv:
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 # print(', '.join(row))
 
     def matchweekETL(self):
-        storage_path = getattr(settings, 'MEDIA_URL', None)
+        storage_path = getattr(settings, 'MEDIA_ROOT', None)
         # django storage version
         # book = default_storage.open(os.path.join(storage_path, '2017-18/player_idlist.csv'), 'r')
         for i in range(1, 21):
@@ -71,7 +71,7 @@ class Command(BaseCommand):
                         print(f'skipped for {row[0]} for matchweek {i}. Exception: {inst}')
 
     def teamETL(self):
-        storage_path = getattr(settings, 'MEDIA_URL', None)
+        storage_path = getattr(settings, 'MEDIA_ROOT', None)
         with open(os.path.join(storage_path, '2017-18/teams_raw.csv'), encoding="utf8") as teamcsv:
             data = csv.reader(teamcsv, delimiter=',')
             next(data)  # ignore first row as it is column titles
