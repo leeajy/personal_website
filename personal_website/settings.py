@@ -126,7 +126,7 @@ django_heroku.settings(locals())
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-USE_S3 = False #todo change this back when redeploying
+USE_S3 = True
 
 if USE_S3:
     # aws settings
