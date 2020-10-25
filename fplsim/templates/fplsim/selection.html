@@ -1,18 +1,38 @@
 <html>
  <body>
- <center>
-<p>{{content}}</p>
+
+
+ {% if not messages %}
+    <p> Fantasy Soccer is an engaging online pastime where fans can display their soccer acuity and keep up with their favorite players.
+        To play, the participant "buys" eleven players every matchweek, with the goal of selecting the best performers.
+        For each player, points are given for achievements such as goals or assists, or deducted for errors such as goals conceded or yellow cards.
+         <u><a href="https://fantasy.premierleague.com/help/rules">(Check out the Scoring section for full details).</a></u>
+        Each week, you can substitute one player without a point penalty.
+
+    <br><br>When I started playing two years ago with some of my ex-coworkers, I tried my best to choose the strongest lineup every week.
+        However, there would be many occasions where my team would be ravaged by unexpected injuries or player drama.
+        If I had heard about the news ahead of time, I could have used my free substitution to acquire more points each week.
+        Rather than reading up on every player every week, I thought it would be neat to have program that could do this automatically.
+    <br><br>Below is a simulator that explores this idea – it will look for news tweets about the players in your lineup,
+        perform sentiment analysis on each tweet, and replace the player with the most “negative” tweet.
+        We can compare this to simulations done with no substitutions, or substitutions based on player performance.
+        Try it out yourself!
+    </p>
+ {% endif %}
+
+<center>
 <form method="POST">
  {% csrf_token %}
 
  {% if messages %}
     {% for message in messages %}
-  <div class="alert alert-{{ message.tags}}">
-      <b>{{ message }} </b>
-      {% endfor %}
+  <div class="alert-{{ message.tags}}">
+       <p><b style="color:red">{{ message }}  </b></p>
   </div>
+    {% endfor %}
  {% endif %}
 
+<br>
 {{form.GK.label}}
 <br>
 {{form.GK}}

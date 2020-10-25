@@ -22,8 +22,6 @@ if __name__ == '__main__':
     main()
 
 
-#todo deploy to Heroku - run ETL and migrate
-#todo edit CSS for warning message
 #todo link resume to AWS media
 #todo add comments/ clean up code
 #todo blog posts

@@ -49,32 +49,36 @@
 <body>
     {% block content %}
     {% endblock content %}
-    <!-- ======= Previous Projects Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
 
-        <div class="section-title">
-          <h2>Past Projects</h2>
-          <p>I like thinking of ideas. Here are some projects my friends and I have worked on in the past.</p>
-        </div>
 
-        <div class="row portfolio-container">
-        {% for post in past_projects %}
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src= {{ STATIC_PREFIX|add:post.image_path}}  class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>{{post.title}}</h4>
-              <p>{{post.caption}}</p>
-              <a href="{{post.link}}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
+    {% if bProject_section %}
+      <!-- ======= Previous Projects Section ======= -->
+      <section id="portfolio" class="portfolio">
+        <div class="container">
+
+          <div class="section-title">
+            <h2>Past Projects</h2>
+            <p>I like thinking of ideas. Here are some projects my friends and I have worked on in the past.</p>
           </div>
-        {% endfor %}
-        </div>
+
+          <div class="row portfolio-container">
+          {% for post in past_projects %}
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+              <img src= {{ STATIC_PREFIX|add:post.image_path}}  class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>{{post.title}}</h4>
+                <p>{{post.caption}}</p>
+                <a href="{{post.link}}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+
+          </div>
 
         </div>
-
-      </div>
-    </section><!-- End Previous Projects Section -->
+      </section><!-- End Previous Projects Section -->
+    {% endif %}
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact section-bg">

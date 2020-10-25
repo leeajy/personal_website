@@ -1,3 +1,5 @@
+# todo merge two static directories (this one is the main copy)
+
 /**
 * Template Name: Alstar - v2.1.0
 * Template URL: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/
@@ -24,6 +26,13 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
+}
+
+.btn {
+  color: #fff;
+  background: #6a57fa;
+  border-color: #6a57fa;
+  transition: background 0.2s ease-in-out;
 }
 
 /*--------------------------------------------------------------
