@@ -49,7 +49,8 @@ class Command(BaseCommand):
             for row in data:
                 Player(id=row[2], first_name=row[0], last_name=row[1],
                        position=Position.objects.get(id=int(row[3])),
-                       team=Team.objects.get(id=int(row[4]))).save()
+                       team=Team.objects.get(id=int(row[4])),
+                       value=float(row[5])).save()
                 # print(', '.join(row))
 
     def matchweekETL(self):

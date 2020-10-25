@@ -10,17 +10,13 @@
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="container">
+        <div class="section-title">
+            <h2>Antonio Lee</h2>
+        </div>
 
-        <h1>Antonio Lee</h1>
-
-	      <p>Hello! Welcome to my page. I will use this to post any cool coding projects or findings. <br>
-
-	      Three facts about me:  <br>
-	      I am a Georgia Tech alumni. Go Jackets! <br>
-			  I love playing and watching soccer. My favorite team is Arsenal. <br>
-			  I grew up in three different countries - Korea, Mexico, and the United States. <br>
-			  I am currently looking for a Software Engineer or Data Engineer position. Please <b><a href="mailto:leeantonio18@gmail.com">contact me</a></b> if you want my resume!
-	      	</p>
+	      <p><center>Hello! Welcome to my page. I will use this to post any cool coding projects or findings. <br>
+			  I am currently looking for a Software Engineer or Data Engineer position. Here is my <b><a href="">resume.</a></b>
+          </center></p>
 
       </div>
     </section><!-- End About Section -->
@@ -32,10 +28,10 @@
         <div class="section-title">
           <h2> {{ post.title }} </h2>
         </div>
-          <p> {{post.content}} <br>
-          {{fplsim}}
-          </p>
           {% endfor %}
+          {{fplsim}}
+
+
       </div>
     </section><!-- End Fantasy Project Section -->
 

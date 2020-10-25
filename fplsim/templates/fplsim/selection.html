@@ -1,22 +1,43 @@
-{% extends "blog/base.html" %}
+<html>
+ <body>
+ <center>
+<p>{{content}}</p>
+<form method="POST">
+ {% csrf_token %}
 
-{% block contents %}
- <section id="fplsimulation">
-     <form method="POST">
-         {% csrf_token %}
-         <fieldset class="form-group">
-             <legend class="border-bottom mb-4"> Make your selection
-                 {{ form }}
-             </legend>
-         </fieldset>
-         <div class="form-group">
-             <button class="btn btn-outline-info" type="submit">Submit</button>
-         </div>
-     </form>
-     <div class = "border-top pt-3">
-         <small class="text-muted">
-            Invalid selection...
-         </small>
-     </div>
- </section>
-{% endblock contents %}
+ {% if messages %}
+    {% for message in messages %}
+  <div class="alert alert-{{ message.tags}}">
+      <b>{{ message }} </b>
+      {% endfor %}
+  </div>
+ {% endif %}
+
+{{form.GK.label}}
+<br>
+{{form.GK}}
+<br>
+{{form.DEF.label}}
+<br>
+{{form.DEF}}
+<br>
+{{form.MID.label}}
+<br>
+{{form.MID}}
+<br>
+{{form.FWD.label}}
+<br>
+{{form.FWD}}
+<br>
+{{form.choice.label}}
+<br>
+{{form.choice}}
+<br>
+<br>
+ <div class="form-group">
+     <button class="btn btn-outline-info" type="submit">Simulate</button>
+ </div>
+</form>
+</center>
+</body>
+</html>

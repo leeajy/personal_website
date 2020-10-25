@@ -1,6 +1,5 @@
 #local storage files
 /blog/static
-/static
 /staticfiles
 
 #.idea

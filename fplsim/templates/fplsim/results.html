@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+ <!-- Template Main CSS File -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+
+<body>
+
+<center>
+<h1>Total Points: {{ total_points.0 }} </h1>
+<h4>Points if no swaps were made: {{ total_points_ctrl }} </h4>
+<h4>Squad Cost: ${{ team_cost.0 }} </h4>
+<h4>Squad Cost if no swaps were made: ${{ team_cost.1 }} </h4>
+<br>
+<br>
+<h4> Final Squad</h4>
+<p>
+    {{squad.0.name}}
+    <br>
+    <br>
+    {{squad.1.name}} - {{squad.2.name}} - {{squad.3.name}} - {{squad.4.name}}
+    <br>
+    <br>
+    {{squad.5.name}} - {{squad.6.name}} - {{squad.7.name}} - {{squad.8.name}}
+    <br>
+    <br>
+    {{squad.9.name}} - {{squad.10.name}}
+</p>
+<br>
+<h4> Swaps Made </h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Matchweek</th>
+            <th>Swap Made</th>
+            <th>Swap Details</th>
+            <th>Points Earned</th>
+            <th>Points W/O Swap (Control)</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            {% for tuple in results %}
+            <tr>
+            <td>{{tuple.0.matchweek}}</td>
+            <td>{{tuple.0.swap}}</td>
+            <td>{{tuple.0.details}}</td>
+            <td>{{tuple.0.points}}</td>
+            <td>{{tuple.1}}</td>
+            </tr>
+            {% endfor %}
+
+
+    </tbody>
+</table>
+
+<br>
+<br>
+<h4> All Results </h4>
+<p> How did other people's simulations turn out?</p>
+<figure class="highcharts-figure">
+    <div id="container2"></div>
+    <p class="highcharts-description">
+    </p>
+</figure>
+
+
+<p>
+    <u><a href="fplsim-analysis">What do the results mean?</a></u>
+    <br>
+    <u><a href="fplsim-creation">How was this made?</a></u>
+</p>
+
+
+<div class="form-group">
+        <a href="" class="btn btn-outline-info">Restart</a>
+</div>
+</center>
+</body>
+
+
+
+<script>
+<!-- For Scatterplot -->
+Highcharts.chart('container2', {
+    chart: {
+        type: 'scatter',
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Points vs. Cost for Different Player Swaps'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        title: {
+            enabled: true,
+            text: 'Cost ($)'
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+    },
+    yAxis: {
+        title: {
+            text: 'Points Earned'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 100,
+        y: 70,
+        floating: true,
+        backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+        borderWidth: 1
+    },
+    plotOptions: {
+        scatter: {
+            marker: {
+                radius: 5,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)'
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '${point.x} , {point.y} '
+            }
+        }
+    },
+    series: [{
+        name: 'Results using sentiment based swap',
+        color: 'rgba(223, 83, 83, .5)',
+        data: {{scatterplot_sent}}
+
+    }, {
+        name: 'Results using form based swap',
+        color: 'rgba(0, 255, 0, .5)',
+        data: {{scatterplot_form}}
+    }, {
+        name: 'Control: Results with no swap',
+        color: 'rgba(119, 152, 191, .5)',
+        data: {{scatterplot_ctrl}}
+    }]
+});
+
+</script>
+
+</html>
