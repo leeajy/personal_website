@@ -57,10 +57,12 @@ class Searcher:
 
         p = subprocess.Popen('snscrape twitter-search "{0}"'.format(filter_query), stdout=subprocess.PIPE, shell=True)
         output =[]
+        urls = []
         for i in range(max_count):
             out = p.stdout.readline()
             out = out.decode('utf-8')
             out = out.strip('\r\n')
+            urls.append(out)
             out = out.split(sep='/')[-1]
             output.append(out)
         p.kill()
@@ -76,11 +78,11 @@ class Searcher:
                 tweet = ''.join(filter(whitelist.__contains__, tweet))
                 tweets.append(tweet)
         except TweepError as e:
-            # Just exit if any error
+            # Just exit if any errors
             print(str(e))
             tweet.append('')
         finally:
-            return tweets
+            return tweets, urls
 
     def cleaner(self, tweet):
         tweet = re.sub(r'^RT[\s]+', '', tweet)

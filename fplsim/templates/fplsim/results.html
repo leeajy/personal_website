@@ -50,7 +50,11 @@
             <tr>
             <td>{{tuple.0.matchweek}}</td>
             <td>{{tuple.0.swap}}</td>
+            {% if sentiment_level == 0 %}
             <td>{{tuple.0.details}}</td>
+            {% elif sentiment_level == 1 %}
+            <td><u><a href={{tuple.2}}>{{tuple.0.details}}</a></u></td>
+            {% endif %}
             <td>{{tuple.0.points}}</td>
             <td>{{tuple.1}}</td>
             </tr>

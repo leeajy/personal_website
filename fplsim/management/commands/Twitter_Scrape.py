@@ -43,7 +43,7 @@ class Command(BaseCommand):
         with open(file_path, 'w+', newline='') as f:
             writer = csv.writer(f)
             for matchcount in range(5):
-                tweets = searcher.search(player, 5, dates[matchcount], dates[matchcount + 1])
+                tweets, urls = searcher.search(player, 5, dates[matchcount], dates[matchcount + 1])
                 sentimentList = []
                 if tweets:
                     for tweet in tweets:
@@ -52,7 +52,8 @@ class Command(BaseCommand):
                     worstIndex = sentimentList.index(worst)
                     tweet = tweets[worstIndex]
                     data = [tweet,
-                            sentimentList[worstIndex]]
+                            sentimentList[worstIndex],
+                            urls[worstIndex]]
                     writer.writerow(data)
                 else:
                     data = ['', 2]
@@ -71,6 +72,7 @@ class Command(BaseCommand):
                     for matchweek, row in enumerate(data):
                         if len(row[0]) > 0:
                             text = row[0]
-                            Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1).save()
+                            Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,
+                                  url=row[2]).save()
                             self.stdout.write(self.style.SUCCESS(
                                 'Successfully created tweet {0}'.format(text)))

@@ -34,8 +34,9 @@ class Player(models.Model):
         return first + ' ' + ' '.join(last)
 
     def __str__(self):
-        return self.first_name[0] + '. ' + self.last_name + ' ; ' + self.team.__str__() + \
+        string = self.first_name[0] + '. ' + self.last_name + ' ; ' + self.team.__str__() + \
                ' ; $' + str(self.value)
+        return string.ljust(100-len(string))
 
 
 class Matchweek(models.Model):
@@ -61,6 +62,7 @@ class Tweet(models.Model):
     text = models.CharField(max_length=280)
     sentiment = models.FloatField(default=0)
     round = models.IntegerField()
+    url = models.CharField(max_length=100)
 
     def __str__(self):
         return '{0}'.format(self.text)

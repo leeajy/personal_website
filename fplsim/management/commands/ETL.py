@@ -57,19 +57,23 @@ class Command(BaseCommand):
         storage_path = getattr(settings, 'MEDIA_ROOT', None)
         # django storage version
         # book = default_storage.open(os.path.join(storage_path, '2017-18/player_idlist.csv'), 'r')
-        for i in range(1, 21):
-            with open(os.path.join(storage_path, '2017-18/gws/gw' + str(i) + '.csv')) as matchweekcsv:
-                data = csv.reader(matchweekcsv, delimiter=',')
-                next(data)  # ignore first row as it is column titles
-                for row in data:
-                    try:
-                        currPlayer = Player.objects.get(id=row[13])
-                        Matchweek(player=currPlayer, round=i, goals=row[19],
-                                  assists=row[1], minutes=row[29], clean_sheets=row[7],
-                                  yellow_cards=row[54], red_cards=row[37], total_points=row[47],
-                                  ICT_index=row[20]).save()
-                    except Exception as inst:
-                        print(f'skipped for {row[0]} for matchweek {i}. Exception: {inst}')
+        for i in range(1, 8):
+            try:
+                with open(os.path.join(storage_path, '2017-18/gws/gw' + str(i) + '.csv')) as matchweekcsv:
+                    data = csv.reader(matchweekcsv, delimiter=',')
+                    next(data)  # ignore first row as it is column titles
+                    for row in data:
+                        try:
+                            currPlayer = Player.objects.get(id=row[13])
+                            Matchweek(player=currPlayer, round=i, goals=row[19],
+                                      assists=row[1], minutes=row[29], clean_sheets=row[7],
+                                      yellow_cards=row[54], red_cards=row[37], total_points=row[47],
+                                      ICT_index=row[20]).save()
+                        except Exception as inst:
+                            print(f'skipped for {row[0]} for matchweek {i}. Exception: {inst}')
+            except Exception as inst:
+                print(f'skipped row in gameweek {i}. Exception: {inst}')
+
 
     def teamETL(self):
         storage_path = getattr(settings, 'MEDIA_ROOT', None)

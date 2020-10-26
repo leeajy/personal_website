@@ -12,7 +12,6 @@ from itertools import chain
 scores = []
 
 
-
 def squad_pick(request):
     if request.method == 'POST':
         form = SquadPicker(request.POST)
@@ -67,11 +66,11 @@ def squad_pick(request):
 
             # call simulation for 5 rounds with squad
             while matchcount < 6:
-                points, squad, budget, result_dict = simulation(squad, budget,
-                                                                int(scraping_lvl), matchcount)
+                points, squad, budget, result_dict, tweet_url = simulation(squad, budget,
+                                                                           int(scraping_lvl), matchcount)
                 matchcount += 1
                 total_points += points
-                results.append((result_dict, points_ctrl[matchcount - 2]))
+                results.append((result_dict, points_ctrl[matchcount - 2], tweet_url))
 
             team_cost -= budget
 
@@ -113,6 +112,7 @@ def squad_pick(request):
                        'scatterplot_ctrl': scatterplot_ctrl,
                        'scatterplot_sent': scatterplot_sent,
                        'scatterplot_form': scatterplot_form,
+                       'sentiment_level': int(scraping_lvl),
                        }
 
             return render_to_string('fplsim/results.html', context, request)
@@ -172,13 +172,17 @@ def simulation(squad, budget, scraping_level, matchcount):
     # find lowest performers based on scraped data
     headlines = []
     sentimentList = []
+    tweet_urls = []
+    tweet_url = None
     if scraping_level == 1:
         for player in squad:
             tweet = Tweet.objects.filter(player=player, round=matchcount)
             if tweet:
                 headlines.append(tweet[0].text)
                 sentimentList.append(tweet[0].sentiment)
+                tweet_urls.append(tweet[0].url)
             else:
+                tweet_urls.append('')
                 headlines.append([''])
                 sentimentList.append(2)
         minVal = min(sentimentList)
@@ -186,6 +190,7 @@ def simulation(squad, budget, scraping_level, matchcount):
             minIndex = sentimentList.index(minVal)
             worstData.append(sentimentList[minIndex])
             worstPlayers.append((squad[minIndex], minIndex))
+            tweet_url = tweet_urls[minIndex]
         else:
             swap = "None"
             result_list = "No tweets with negative sentiment found for any player."
@@ -226,4 +231,4 @@ def simulation(squad, budget, scraping_level, matchcount):
     result_dict['points'] = points
     result_dict['matchweek'] = matchcount
 
-    return points, squad, budget, result_dict
+    return points, squad, budget, result_dict, tweet_url
