@@ -75,6 +75,10 @@ class Command(BaseCommand):
                             tweet = Tweet.objects.filter(player=player,text=text,sentiment=float(row[1]),
                                                          round=matchweek+1,url=row[2])
                             if tweet:
-                                Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,url=row[2]).save()
+                                try:
+                                    Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,url=row[2]).save()
+                                except:
+                                    self.stdout.write(self.style.SUCCESS(
+                                        'Could not create {0}'.format(text)))
                             self.stdout.write(self.style.SUCCESS(
                                 'Successfully created tweet {0}'.format(text)))
