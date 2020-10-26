@@ -64,21 +64,25 @@ class Command(BaseCommand):
         module_dir = settings.STATICFILES_DIRS
         players = Player.objects.all()
         for player in players:
-            fname = str(player.id) + '.csv'
-            file_path = os.path.join(module_dir[0], fname)
-            if os.path.exists(file_path):
-                with open(file_path, newline='') as f:
-                    data = csv.reader(f, delimiter =',')
-                    for matchweek, row in enumerate(data):
-                        if len(row[0]) > 0:
-                            text = row[0]
-                            tweet = Tweet.objects.filter(player=player,text=text,sentiment=float(row[1]),
-                                                         round=matchweek+1,url=row[2])
-                            if tweet:
-                                try:
-                                    Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,url=row[2]).save()
-                                except:
-                                    self.stdout.write(self.style.SUCCESS(
-                                        'Could not create {0}'.format(text)))
-                            self.stdout.write(self.style.SUCCESS(
-                                'Successfully created tweet {0}'.format(text)))
+            try:
+                fname = str(player.id) + '.csv'
+                file_path = os.path.join(module_dir[0], fname)
+                if os.path.exists(file_path):
+                    with open(file_path, newline='') as f:
+                        data = csv.reader(f, delimiter =',')
+                        for matchweek, row in enumerate(data):
+                            if len(row[0]) > 0:
+                                text = row[0]
+                                tweet = Tweet.objects.filter(player=player,text=text,sentiment=float(row[1]),
+                                                             round=matchweek+1,url=row[2])
+                                if tweet:
+                                    try:
+                                        Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,url=row[2]).save()
+                                    except:
+                                        self.stdout.write(self.style.SUCCESS(
+                                            'Could not create {0}'.format(text)))
+                                self.stdout.write(self.style.SUCCESS(
+                                    'Successfully created tweet {0}'.format(text)))
+            except Exception as inst:
+                self.stdout.write(self.style.SUCCESS(
+                    'Error {0}'.format(inst)))
