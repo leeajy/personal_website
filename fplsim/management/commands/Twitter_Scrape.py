@@ -72,7 +72,9 @@ class Command(BaseCommand):
                     for matchweek, row in enumerate(data):
                         if len(row[0]) > 0:
                             text = row[0]
-                            Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,
-                                  url=row[2]).save()
+                            tweet = Tweet.objects.filter(player=player,text=text,sentiment=float(row[1]),
+                                                         round=matchweek+1,url=row[2])
+                            if tweet:
+                                Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,url=row[2]).save()
                             self.stdout.write(self.style.SUCCESS(
                                 'Successfully created tweet {0}'.format(text)))
