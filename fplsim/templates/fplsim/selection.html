@@ -129,49 +129,73 @@
 </body>
 
 <script>
-    function cleanSelected(array)
+function cleanSelected(array)
     {
-        str = ""
+        str = "";
         for (i = 0, len = array.length; i < len; i ++)
         {
             if(i % 3 == 0){
-                value = array[i].split(";")[0].trim()
-                if(value.length > 1)
-                    {str = str.concat(value, " - ")}
-                console.log(str)
+                value = array[i].split(";")[0].trim();
+                if(value.length > 1);
+                    {str = str.concat(value, " - ");}
             }
         }
-        return str.substring(0, str.length -3)
+        console.log(str)
+        return str.substring(0, str.length -6);
     }
 
+$("select#id_GK").change(function displayGK() {
+var selected_GK = $("#id_GK option:selected").text();
+selected_GK = selected_GK.split(";")[0];
+$('#selected_GK').text(selected_GK);
+});
 
-    $("select#id_GK").change(function() {
-    var selected_GK = $("#id_GK option:selected").text();
-    selected_GK = selected_GK.split(";")[0]
-    $('#selected_GK').text(selected_GK)
-    })
+$("select#id_GK").ready(function displayGK() {
+var selected_GK = $("#id_GK option:selected").text();
+selected_GK = selected_GK.split(";")[0];
+$('#selected_GK').text(selected_GK);
+});
 
-    $("select#id_DEF").change(function() {
-    var DEF_list = $("#id_DEF option:selected").text();
-    DEF_list = DEF_list.split(";")
-    var selected_DEF = cleanSelected(DEF_list)
-    $('#selected_DEF').text(selected_DEF)
-    })
+$("select#id_DEF").change(function displayDEF() {
+var DEF_list = $("#id_DEF option:selected").text();
+DEF_list = DEF_list.split(";");
+var selected_DEF = cleanSelected(DEF_list);
+$('#selected_DEF').text(selected_DEF);
+});
 
+$("select#id_DEF").ready(function displayDEF() {
+var DEF_list = $("#id_DEF option:selected").text();
+DEF_list = DEF_list.split(";");
+var selected_DEF = cleanSelected(DEF_list);
+$('#selected_DEF').text(selected_DEF);
+});
 
-    $("select#id_MID").change(function() {
-    var MID_list = $("#id_MID option:selected").text();
-    MID_list = MID_list.split(";")
-    var selected_MID = cleanSelected(MID_list)
-    $('#selected_MID').text(selected_MID)
-    })
+$("select#id_MID").change(function displayMID() {
+var MID_list = $("#id_MID option:selected").text();
+MID_list = MID_list.split(";");
+var selected_MID = cleanSelected(MID_list);
+$('#selected_MID').text(selected_MID);
+});
 
-    $("select#id_FWD").change(function() {
-    var FWD_list = $("#id_FWD option:selected").text();
-    FWD_list = FWD_list.split(";")
-    var selected_FWD = cleanSelected(FWD_list)
-    $('#selected_FWD').text(selected_FWD)
-    })
+$("select#id_MID").ready(function displayMID() {
+var MID_list = $("#id_MID option:selected").text();
+MID_list = MID_list.split(";");
+var selected_MID = cleanSelected(MID_list);
+$('#selected_MID').text(selected_MID);
+});
 
+$("select#id_FWD").change(function displayFWD() {
+var FWD_list = $("#id_FWD option:selected").text();
+FWD_list = FWD_list.split(";");
+var selected_FWD = cleanSelected(FWD_list);
+$('#selected_FWD').text(selected_FWD);
+});
+
+$("select#id_FWD").ready(function displayFWD() {
+var FWD_list = $("#id_FWD option:selected").text();
+FWD_list = FWD_list.split(";");
+var selected_FWD = cleanSelected(FWD_list);
+$('#selected_FWD').text(selected_FWD);
+});
 </script>
 </html>
