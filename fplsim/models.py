@@ -35,7 +35,7 @@ class Player(models.Model):
 
     def __str__(self):
         string = self.first_name[0] + '. ' + self.last_name + ' ; ' + self.team.__str__() + \
-               ' ; $' + str(self.value)
+               ' ; $' + str(self.value) + ' ; '
         return string.ljust(100-len(string))
 
 

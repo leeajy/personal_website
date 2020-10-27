@@ -1,89 +1,177 @@
 <html>
- <body>
+<head>
+    <style>
+    .field {
+        position: relative;
+        text-align: center;
+        background: url(https://antoniolee-personal.s3.us-east-2.amazonaws.com/media/field.JPG);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 
 
- {% if not messages %}
-    <p> Fantasy Soccer is an engaging online pastime where fans can display their soccer acuity and keep up with their favorite players.
-        To play, the participant "buys" eleven players every matchweek, with the goal of selecting the best performers.
-        For each player, points are given for achievements such as goals or assists, or deducted for errors such as goals conceded or yellow cards.
-         <u><a href="https://fantasy.premierleague.com/help/rules">(Check out the Scoring section for full details).</a></u>
-        Each week, you can substitute one player without a point penalty.
 
-    <br><br>When I started playing two years ago with some of my ex-coworkers, I tried my best to choose the strongest lineup every week.
-        However, there would be many occasions where my team would be ravaged by unexpected injuries or player drama.
-        If I had heard about the news ahead of time, I could have used my free substitution to acquire more points each week.
-        Rather than reading up on every player every week, I thought it would be neat to have program that could do this automatically.
-    <br><br>Below is a simulator that explores this idea – it will look for news tweets about the players in your lineup,
-        perform sentiment analysis on each tweet, and replace the player with the most “negative” tweet.
-        We can compare this to simulations done with no substitutions, or substitutions based on player performance.
-        Try it out yourself!
-    </p>
- {% endif %}
+    #source {
+        position:relative
+        text-align: left;
+    }
+
+
+
+
+    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+{% if not messages %}
+<p> Fantasy Soccer is an engaging online pastime where fans can display their soccer acuity and keep up with their
+    favorite players.
+    To play, the participant "buys" eleven players every matchweek, with the goal of selecting the best performers.
+    For each player, points are given for achievements such as goals or assists, or deducted for errors such as goals
+    conceded or yellow cards.
+    <u><a href="https://fantasy.premierleague.com/help/rules">(Check out the Scoring section for full details).</a></u>
+    Each week, you can substitute one player without a point penalty.
+
+    <br><br>When I started playing two years ago with some of my ex-coworkers, I tried my best to choose the strongest
+    lineup every week.
+    However, there would be many occasions where my team would be ravaged by unexpected injuries or player drama.
+    If I had heard about the news ahead of time, I could have used my free substitution to acquire more points each
+    week.
+    Rather than reading up on every player every week, I thought it would be neat to have program that could do this
+    automatically.
+    <br><br>Below is a simulator that explores this idea – it will look for news tweets about the players in your
+    lineup,
+    perform sentiment analysis on each tweet, and replace the player with the most “negative” tweet.
+    We can compare this to simulations done with no substitutions, or substitutions based on player performance.
+    Try it out yourself!
+</p>
+{% endif %}
 
 
 <div class="row">
-<div class="col-md-6">
-<h4>Team Selection</h4>
-<form method="POST">
- {% csrf_token %}
+    <div class="col-md-6">
+        <h4>
+            <center>Team Selection</center>
+        </h4>
+        <form method="POST">
+            {% csrf_token %}
 
- {% if messages %}
-    {% for message in messages %}
-  <div class="alert-{{ message.tags}}">
-       <p><b style="color:red">{{ message }}  </b></p>
-  </div>
-    {% endfor %}
- {% endif %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert-{{ message.tags}}">
+                <p><b style="color:red">{{ message }} </b></p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <center>
+                <br>
+                {{form.GK.label}}
+                <br>
+                {{form.GK}}
+                <br>
+                {{form.DEF.label}}
+                <br>
+                {{form.DEF}}
+                <br>
+                {{form.MID.label}}
+                <br>
+                {{form.MID}}
+                <br>
+                {{form.FWD.label}}
+                <br>
+                {{form.FWD}}
+                <br>
+                {{form.choice.label}}
+                <br>
+                {{form.choice}}
 
-<br>
-{{form.GK.label}}
-<br>
-{{form.GK}}
-<br>
-{{form.DEF.label}}
-<br>
-{{form.DEF}}
-<br>
-{{form.MID.label}}
-<br>
-{{form.MID}}
-<br>
-{{form.FWD.label}}
-<br>
-{{form.FWD}}
-<br>
-{{form.choice.label}}
-<br>
-{{form.choice}}
-<br>
-<br>
- <div class="form-group">
-     <button class="btn btn-outline-info" type="submit">Simulate</button>
- </div>
-</form>
-</div>
-<div class="col-md-6 mt-4 mt-md-0">
-<h4>Selected Squad</h4>
-<p>
-    {{squad.1.name}}
-    <br>
-    <br>
-    {{squad.2.name}} - {{squad.2.name}} - {{squad.3.name}} - {{squad.4.name}}
-    <br>
-    <br>
-    {{squad.5.name}} - {{squad.6.name}} - {{squad.7.name}} - {{squad.8.name}}
-    <br>
-    <br>
-    {{squad.9.name}} - {{squad.10.name}}
-</p>
+                <br>
+                <br>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Simulate</button>
+                </div>
+            </center>
+        </form>
+    </div>
+    <div class="col-md-6 mt-4 mt-md-0">
 
+        <h4>
+            <center>Selected Squad</center>
+        </h4>
+        <br>
+        <br>
 
-</div>
+        <div class="field">
+        <h6>
+            <b>
+            <br><br><br><br>
+            <span id="selected_GK" > </span>
+            <br><br><br><br><br>
+            <span id="selected_DEF"> </span>
+            <br><br><br><br>
+            <span id="selected_MID"> </span>
+            <br><br><br><br>
+            <span id="selected_FWD"> </span>
+            <br><br>
+            </b>
+        </h6>
+        </div>
+         <p id="source">*Image Source: <u><a href="https://en.wikipedia.org/wiki/File:Soccer_Field_Transparant.svg">Wikipedia - Football Field</a></u></p>
+    </div>
 </div>
 
 </body>
 
 <script>
+    function cleanSelected(array)
+    {
+        str = ""
+        for (i = 0, len = array.length; i < len; i ++)
+        {
+            if(i % 3 == 0){
+                value = array[i].split(";")[0].trim()
+                if(value.length > 1)
+                    {str = str.concat(value, " - ")}
+                console.log(str)
+            }
+        }
+        return str.substring(0, str.length -3)
+    }
+
+
+    $("select#id_GK").change(function() {
+    var selected_GK = $("#id_GK option:selected").text();
+    selected_GK = selected_GK.split(";")[0]
+    $('#selected_GK').text(selected_GK)
+    })
+
+    $("select#id_DEF").change(function() {
+    var DEF_list = $("#id_DEF option:selected").text();
+    DEF_list = DEF_list.split(";")
+    var selected_DEF = cleanSelected(DEF_list)
+    $('#selected_DEF').text(selected_DEF)
+    })
+
+
+    $("select#id_MID").change(function() {
+    var MID_list = $("#id_MID option:selected").text();
+    MID_list = MID_list.split(";")
+    var selected_MID = cleanSelected(MID_list)
+    $('#selected_MID').text(selected_MID)
+    })
+
+    $("select#id_FWD").change(function() {
+    var FWD_list = $("#id_FWD option:selected").text();
+    FWD_list = FWD_list.split(";")
+    var selected_FWD = cleanSelected(FWD_list)
+    $('#selected_FWD').text(selected_FWD)
+    })
 
 </script>
 </html>

@@ -1,38 +1,40 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-  <title>Antonio Lee</title>
-  <meta content="Personal website for Antonio Lee" name="description">
-  <meta content="HTML, CSS, JavaScript" name="keywords">
+<title>Antonio Lee</title>
+<meta content="Personal website for Antonio Lee" name="description">
+<meta content="HTML, CSS, JavaScript" name="keywords">
 {% endblock title %}
 
 {% block content %}
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
+<!-- ======= About Section ======= -->
+<section id="about" class="about">
+    <div class="container">
         <div class="section-title">
             <h2>Antonio Lee</h2>
         </div>
 
-	      <p><center>Hello! Welcome to my page. I will use this to post any cool coding projects or findings. <br>
-			  I am currently looking for a Software Engineer or Data Engineer position. Here is my <b><a href="">resume.</a></b>
-          </center></p>
+        <p>
+        <center>Hello! Welcome to my page. I will use this to post any cool coding projects or findings. <br>
+            I am currently looking for a Software Engineer or Data Engineer position. Here is my <b><a
+                    href="">resume.</a></b>
+        </center>
+        </p>
 
-      </div>
-    </section><!-- End About Section -->
+    </div>
+</section><!-- End About Section -->
 
-    <!-- ======= Fantasy Project Section ======= -->
-    <section id="current_project" class="current_project section-bg">
-      <div class="container">
+<!-- ======= Fantasy Project Section ======= -->
+<section id="current_project" class="current_project section-bg">
+    <div class="container">
         {% for post in posts %}
         <div class="section-title">
-          <h2> {{ post.title }} </h2>
+            <h2> {{ post.title }} </h2>
         </div>
-          {% endfor %}
-          {{fplsim}}
+        {% endfor %}
 
-
-      </div>
-    </section><!-- End Fantasy Project Section -->
+        {{fplsim}}
+    </div>
+</section><!-- End Fantasy Project Section -->
 
 {% endblock content %}
