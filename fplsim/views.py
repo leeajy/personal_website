@@ -23,19 +23,19 @@ def squad_pick(request):
             Forwards = form.cleaned_data['FWD']
             scraping_lvl = form.cleaned_data['choice']
             if len(Defenders) != 4:
-                error3 = 'Four defenders required: use CTRL+Left (Windows) or CMD+Left (Mac) Click to select multiple ' \
-                         'items.'
+                error3 = 'Four defenders required. Currently selected: {0}'.format(len(Defenders))
                 messages.error(request, error3)
                 return render_to_string('fplsim/selection.html', {'form': form,
                                                                   }, request)
             if len(Midfielders) != 4:
-                error2 = 'Four midfielders required: use CTRL+Left (Windows) or CMD+Left (Mac) Click to select ' \
-                         'multiple items.'
+                error2 = 'Four midfielders required: use CTRL+Left (Windows) or CMD+Left (Mac) to select ' \
+                         'multiple items. Currently selected: {0}'.format(len(Midfielders))
                 messages.error(request, error2)
                 return render_to_string('fplsim/selection.html', {'form': form,
                                                                   }, request)
             if len(Forwards) != 2:
-                error1 = 'Two strikers required: use CTRL+Left (Windows) or CMD+Left (Mac) to select multiple items.'
+                error1 = 'Two strikers required: use CTRL+Left (Windows) or CMD+Left (Mac) to select multiple items.' \
+                         'Currently selected: {0}'.format(len(Forwards))
                 messages.error(request, error1)
                 return render_to_string('fplsim/selection.html', {'form': form,
                                                                   }, request)

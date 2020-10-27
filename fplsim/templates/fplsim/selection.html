@@ -9,6 +9,11 @@
         background-repeat: no-repeat;
     }
 
+    #tooltip{
+        padding: 0;
+        font-size: 0.75rem;
+        border-radius: 50%;
+    }
 
 
     #source {
@@ -75,8 +80,7 @@
                 <br>
                 {{form.GK}}
                 <br>
-                {{form.DEF.label}}
-                <br>
+                <u><div data-toggle="tooltip" data-placement="top" title="{{form.DEF.help_text }}">{{form.DEF.label}}</div></u>
                 {{form.DEF}}
                 <br>
                 {{form.MID.label}}
@@ -90,7 +94,6 @@
                 {{form.choice.label}}
                 <br>
                 {{form.choice}}
-
                 <br>
                 <br>
                 <div class="form-group">
