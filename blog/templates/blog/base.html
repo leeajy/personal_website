@@ -5,110 +5,111 @@
 {% get_static_prefix as STATIC_PREFIX %}
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  {% block title %}
-  {% endblock title %}
+    {% block title %}
+    {% endblock title %}
 
-  <title>Antonio Lee</title>
-  <meta content="Personal website for Antonio Lee" name="description">
-  <meta content="HTML, CSS, JavaScript" name="keywords">
+    <title>Antonio Lee</title>
+    <meta content="Personal website for Antonio Lee" name="description">
+    <meta content="HTML, CSS, JavaScript" name="keywords">
 
-  <!-- Favicons -->
-  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
-  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
-  <!-- Bootstrap -->
-  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-  <!-- Return To Top icon -->
-  <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <!-- Return To Top icon -->
+    <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
 
-  <!-- Outbound link for past projects icon -->
-  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <!-- Outbound link for past projects icon -->
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Alstar - v2.1.0
-  * Template URL: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!-- =======================================================
+    * Template Name: Alstar - v2.1.0
+    * Template URL: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 
-  <!-- Chart JS for graph display -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- Chart JS for graph display -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 </head>
 
 <body>
-    {% block content %}
-    {% endblock content %}
+{% block content %}
+{% endblock content %}
 
 
-    {% if bProject_section %}
-      <!-- ======= Previous Projects Section ======= -->
-      <section id="portfolio" class="portfolio">
-        <div class="container">
-
-          <div class="section-title">
-            <h2>Past Projects</h2>
-            <p>I like thinking of ideas. Here are some projects my friends and I have worked on in the past.</p>
-          </div>
-
-          <div class="row portfolio-container">
-          {% for post in past_projects %}
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <img src= {{ STATIC_PREFIX|add:post.image_path}}  class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>{{post.title}}</h4>
-                <p>{{post.caption}}</p>
-                <a href="{{post.link}}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          {% endfor %}
-          </div>
-
-          </div>
-
-        </div>
-      </section><!-- End Previous Projects Section -->
-    {% endif %}
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact section-bg">
-      <div class="container">
+{% if bProject_section %}
+<!-- ======= Previous Projects Section ======= -->
+<section id="portfolio" class="portfolio">
+    <div class="container">
 
         <div class="section-title">
-          <h2>Contact</h2>
-          <p>
-          	Email:  <u><a href="mailto:leeantonio18@gmail.com">Leeantonio18@gmail.com</a></u>
-          	<br>
-          	LinkedIn:  <u><a href="https://www.linkedin.com/in/antoniojylee/">Antonio Jun Yeob Lee</a></u>
-            <br>
-          	Github:  <u><a href="https://github.com/leeajy">LeeAJY</a></u>
-          </p>
+            <h2>Past Projects</h2>
+            <p>I like thinking of ideas. Here are some projects my friends and I have worked on in the past.</p>
         </div>
 
-      </div>
-    </section><!-- End Contact Section -->
+        <div class="row portfolio-container">
+            {% for post in past_projects %}
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                <img src={{ STATIC_PREFIX|add:post.image_path}} class="img-fluid" alt="">
+                <div class="portfolio-info">
+                    <h4>{{post.title}}</h4>
+                    <p>{{post.caption}}</p>
+                    <a href="{{post.link}}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 
-  </main><!-- End #main -->
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    </div>
 
-  <!-- Vendor JS Files -->
-  <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    </div>
+</section><!-- End Previous Projects Section -->
+{% endif %}
 
-  <!-- Template Main JS File -->
-  <script src="{% static 'assets/js/main.js' %}"></script>
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Contact</h2>
+            <p>
+                Email: <u><a href="mailto:leeantonio18@gmail.com">Leeantonio18@gmail.com</a></u>
+                <br>
+                LinkedIn: <u><a href="https://www.linkedin.com/in/antoniojylee/">Antonio Jun Yeob Lee</a></u>
+                <br>
+                Github: <u><a href="https://github.com/leeajy">LeeAJY</a></u>
+            </p>
+        </div>
+
+    </div>
+</section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
 

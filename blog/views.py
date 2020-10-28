@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import fplsim.views as fplsim
 
-
 posts = [
     {
         'title': 'Can we scrape Tweets to score more points in Fantasy Soccer?',
@@ -42,9 +41,9 @@ past_projects = [
 
 content = []
 
+
 # Create your views here.
 def home(request):
-
     render1 = fplsim.squad_pick(request)
     context = {
         'posts': posts,
@@ -61,11 +60,12 @@ def project(request):
         'past_projects': past_projects,
         'bProject_section': True,
     }
-    return render(request, "blog/projects.html",  context)
+    return render(request, "blog/projects.html", context)
+
 
 def fplsim_analysis(request):
     context = {
         'content': content,
         'bProject_section': False,
     }
-    return render(request, "blog/blog-post-fplsim_results.html",  context)
+    return render(request, "blog/blog-post-fplsim_results.html", context)

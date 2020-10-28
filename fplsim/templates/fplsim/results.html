@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
- <!-- Template Main CSS File -->
+<!-- Template Main CSS File -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -9,33 +9,32 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
-
 <body>
 
 <center>
-<h1>Total Points: {{ total_points.0 }} </h1>
-<h4>Points if no swaps were made: {{ total_points_ctrl }} </h4>
-<h4>Squad Cost: ${{ team_cost.0 }} </h4>
-<h4>Squad Cost if no swaps were made: ${{ team_cost.1 }} </h4>
-<br>
-<br>
-<h4> Final Squad</h4>
-<p>
-    {{squad.0.name}}
+    <h1>Total Points: {{ total_points.0 }} </h1>
+    <h4>Points if no swaps were made: {{ total_points_ctrl }} </h4>
+    <h4>Squad Cost: ${{ team_cost.0 }} </h4>
+    <h4>Squad Cost if no swaps were made: ${{ team_cost.1 }} </h4>
     <br>
     <br>
-    {{squad.1.name}} - {{squad.2.name}} - {{squad.3.name}} - {{squad.4.name}}
+    <h4> Final Squad</h4>
+    <p>
+        {{squad.0.name}}
+        <br>
+        <br>
+        {{squad.1.name}} - {{squad.2.name}} - {{squad.3.name}} - {{squad.4.name}}
+        <br>
+        <br>
+        {{squad.5.name}} - {{squad.6.name}} - {{squad.7.name}} - {{squad.8.name}}
+        <br>
+        <br>
+        {{squad.9.name}} - {{squad.10.name}}
+    </p>
     <br>
-    <br>
-    {{squad.5.name}} - {{squad.6.name}} - {{squad.7.name}} - {{squad.8.name}}
-    <br>
-    <br>
-    {{squad.9.name}} - {{squad.10.name}}
-</p>
-<br>
-<h4> Substitution Made </h4>
-<table class="table">
-    <thead>
+    <h4> Substitution Made </h4>
+    <table class="table">
+        <thead>
         <tr>
             <th>Matchweek</th>
             <th>Sub Made</th>
@@ -43,11 +42,11 @@
             <th>Points Earned</th>
             <th>Points w/o Sub (Control)</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
 
-            {% for tuple in results %}
-            <tr>
+        {% for tuple in results %}
+        <tr>
             <td>{{tuple.0.matchweek}}</td>
             <td>{{tuple.0.swap}}</td>
             {% if sentiment_level == 0 %}
@@ -59,35 +58,34 @@
             {% endif %}
             <td>{{tuple.0.points}}</td>
             <td>{{tuple.1}}</td>
-            </tr>
-            {% endfor %}
+        </tr>
+        {% endfor %}
 
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<br>
-<br>
-<h4> All Results </h4>
-<p> How did other people's simulations turn out?</p>
-<figure class="highcharts-figure">
-    <div id="container2"></div>
-    <p class="highcharts-description">
+    <br>
+    <br>
+    <h4> All Results </h4>
+    <p> How did other people's simulations turn out?</p>
+    <figure class="highcharts-figure">
+        <div id="container2"></div>
+        <p class="highcharts-description">
+        </p>
+    </figure>
+
+
+    <p>
+        <u><a href="fplsim-analysis">What do the results mean?</a></u>
     </p>
-</figure>
 
 
-<p>
-    <u><a href="fplsim-analysis">What do the results mean?</a></u>
-</p>
-
-
-<div class="form-group">
+    <div class="form-group">
         <a href="" class="btn btn-outline-info">Restart</a>
-</div>
+    </div>
 </center>
 </body>
-
 
 
 <script>
@@ -166,6 +164,7 @@ Highcharts.chart('container2', {
         data: {{scatterplot_ctrl}}
     }]
 });
+
 
 </script>
 

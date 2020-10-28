@@ -17,19 +17,17 @@ import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'ztmx55mao30hs!$t@8il=i!!l25l#z65h4*m0cr^@lukp86rvo'
+# SECRET_KEY = 'ztmx55mao30hs!$t@8il=i!!l25l#z65h4*m0cr^@lukp86rvo'
 SECRET_KEY = os.environ.get('SECRET_KEY_Personal_Project')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # (os.environ.get('DEBUG_VALUE_Personal_Project') == True) # Todo change this to back when redeploying
+DEBUG = (os.environ.get('DEBUG_VALUE_Personal_Project') == True) # Change this to 'True' when debugging.
 
-ALLOWED_HOSTS = ['leeantonio.herokuapp.com',]
-
+ALLOWED_HOSTS = ['leeantonio.herokuapp.com', ]
 
 # Application definition
 
@@ -75,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'personal_website.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -85,7 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -105,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -119,9 +114,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 django_heroku.settings(locals())
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -145,14 +138,13 @@ else:
     STATIC_URL = '/staticfiles/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
 # for database csv files
 MEDIA_URL = '/mediafiles/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-#Tweepy Variables
+# Tweepy Variables
 TWITTER_API_KEY = os.environ.get('TWITTER_API_KEY')
 TWITTER_API_SECRET_KEY = os.environ.get('TWITTER_API_SECRET_KEY')
 TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')

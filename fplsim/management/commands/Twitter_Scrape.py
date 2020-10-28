@@ -69,15 +69,16 @@ class Command(BaseCommand):
                 file_path = os.path.join(module_dir[0], fname)
                 if os.path.exists(file_path):
                     with open(file_path, newline='') as f:
-                        data = csv.reader(f, delimiter =',')
+                        data = csv.reader(f, delimiter=',')
                         for matchweek, row in enumerate(data):
                             if len(row[0]) > 0:
                                 text = row[0]
-                                tweet = Tweet.objects.filter(player=player,text=text,sentiment=float(row[1]),
-                                                             round=matchweek+1,url=row[2])
+                                tweet = Tweet.objects.filter(player=player, text=text, sentiment=float(row[1]),
+                                                             round=matchweek + 1, url=row[2])
                                 if tweet:
                                     try:
-                                        Tweet(player=player,text=text,sentiment=float(row[1]),round=matchweek+1,url=row[2]).save()
+                                        Tweet(player=player, text=text, sentiment=float(row[1]), round=matchweek + 1,
+                                              url=row[2]).save()
                                     except:
                                         self.stdout.write(self.style.SUCCESS(
                                             'Could not create {0}'.format(text)))

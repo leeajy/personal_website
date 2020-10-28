@@ -74,7 +74,6 @@ class Command(BaseCommand):
             except Exception as inst:
                 print(f'skipped row in gameweek {i}. Exception: {inst}')
 
-
     def teamETL(self):
         storage_path = getattr(settings, 'MEDIA_ROOT', None)
         with open(os.path.join(storage_path, '2017-18/teams_raw.csv'), encoding="utf8") as teamcsv:

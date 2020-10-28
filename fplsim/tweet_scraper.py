@@ -6,7 +6,6 @@ import subprocess
 import personal_website.settings as settings
 
 
-
 class Authenticator:
 
     def authenticate(self):
@@ -56,7 +55,7 @@ class Searcher:
         filter_query = player.name() + filters + ' list:LeeAntonio55/PremierLeagueNews'
 
         p = subprocess.Popen('snscrape twitter-search "{0}"'.format(filter_query), stdout=subprocess.PIPE, shell=True)
-        output =[]
+        output = []
         urls = []
         for i in range(max_count):
             out = p.stdout.readline()
@@ -67,11 +66,10 @@ class Searcher:
             output.append(out)
         p.kill()
 
-
         api = API(self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
         tweets = []
         try:
-            new_tweets = api.statuses_lookup(output,False)
+            new_tweets = api.statuses_lookup(output, False)
             for tweet in new_tweets:
                 tweet = self.cleaner(tweet.text)
                 whitelist = set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,;:'")

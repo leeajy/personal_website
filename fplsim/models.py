@@ -35,8 +35,8 @@ class Player(models.Model):
 
     def __str__(self):
         string = self.first_name[0] + '. ' + self.last_name + ' ; ' + self.team.__str__() + \
-               ' ; $' + str(self.value) + ' ; '
-        return string.ljust(100-len(string))
+                 ' ; $' + str(self.value) + ' ; '
+        return string.ljust(100 - len(string))
 
 
 class Matchweek(models.Model):
@@ -66,6 +66,7 @@ class Tweet(models.Model):
 
     def __str__(self):
         return '{0}'.format(self.text)
+
 
 class Result(models.Model):
     points = models.IntegerField()

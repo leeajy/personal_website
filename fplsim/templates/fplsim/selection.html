@@ -36,10 +36,6 @@
         position:relative
         text-align: left;
     }
-
-
-
-
     </style>
     <script
             src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -75,7 +71,8 @@
     <br><br>
     Instructions: Choose your squad and the substitution type using the widgets below.
     Using the simulator, observe how substitutions impact your team's total score and total price.
-    (For fantasy gurus: the simulator uses the first five matchweeks of the 2017-18 season. Do you remember who performed well?)
+    (For fantasy gurus: the simulator uses the first five matchweeks of the 2017-18 season. Do you remember who
+    performed well?)
 
 </p>
 {% endif %}
@@ -102,7 +99,10 @@
                 <br>
                 {{form.GK}}
                 <br>
-                <u><div data-toggle="tooltip" data-placement="top" title="{{form.DEF.help_text }}">{{form.DEF.label}}</div></u>
+                <u>
+                    <div data-toggle="tooltip" data-placement="top" title="{{form.DEF.help_text }}">{{form.DEF.label}}
+                    </div>
+                </u>
                 {{form.DEF}}
                 <br>
                 {{form.MID.label}}
@@ -133,27 +133,31 @@
         <br>
 
         <div class="field">
-        <h6>
-            <b>
-            <br><br><br><br>
-            <span id="selected_GK" > </span>
-            <br><br><br><br><br>
-            <span id="selected_DEF"> </span>
-            <br><br><br><br>
-            <span id="selected_MID"> </span>
-            <br><br><br><br>
-            <span id="selected_FWD"> </span>
-            <br><br>
-            </b>
-        </h6>
+            <h6>
+                <b>
+                    <br><br><br><br>
+                    <span id="selected_GK"> </span>
+                    <br><br><br><br><br>
+                    <span id="selected_DEF"> </span>
+                    <br><br><br><br>
+                    <span id="selected_MID"> </span>
+                    <br><br><br><br>
+                    <span id="selected_FWD"> </span>
+                    <br><br>
+                </b>
+            </h6>
         </div>
-         <p id="img-fluid source">*Image Source: <u><a href="https://en.wikipedia.org/wiki/File:Soccer_Field_Transparant.svg">Wikipedia - Football Field</a></u></p>
+        <p id="img-fluid source">*Image Source: <u><a
+                href="https://en.wikipedia.org/wiki/File:Soccer_Field_Transparant.svg">Wikipedia - Football
+            Field</a></u></p>
     </div>
 </div>
 
 </body>
 
 <script>
+//Front end processing of selected items to display current squad on field.
+
 function cleanSelected(array)
     {
         str = "";
@@ -222,5 +226,6 @@ FWD_list = FWD_list.split(";");
 var selected_FWD = cleanSelected(FWD_list);
 $('#selected_FWD').text(selected_FWD);
 });
+
 </script>
 </html>

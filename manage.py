@@ -21,7 +21,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-#todo link resume to AWS media
-#todo blog posts - results and creation process
-#todo add comments/ clean up code
