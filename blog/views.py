@@ -68,11 +68,4 @@ def fplsim_analysis(request):
         'content': content,
         'bProject_section': False,
     }
-    return render(request, "blog/blog-post.html",  context)
-
-def fplsim_creation(request):
-    context = {
-        'content': content,
-        'bProject_section': False,
-    }
-    return render(request, "blog/blog-post.html",  context)
+    return render(request, "blog/blog-post-fplsim_results.html",  context)

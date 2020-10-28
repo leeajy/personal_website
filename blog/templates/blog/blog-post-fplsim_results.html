@@ -1,0 +1,131 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+  <title>FPL Simulator - Analysis</title>
+  <meta content="Personal website for Antonio Lee" name="description">
+  <meta content="HTML, CSS, JavaScript" name="keywords">
+{% endblock title %}
+
+{% block content %}
+    <!-- ======= FPL Simulation - Results and Discussion Section ======= -->
+      <section id="portfolio" class="portfolio">
+        <div class="container">
+
+          <div class="section-title">
+            <h2>FPL Simulation - Results and Discussion</h2>
+          </div>
+            <p>
+              <br><br><h5><b>Initial Glance</b></h5><br>
+              From an initial glance, we do not see a clear significant improvement with either swap in comparison to the control.
+              Let’s ignore the form-based swap data for a second. Here is what the scatterplot may have looked like if our
+              sentiment-analysis-based swapping consistently led to
+              higher points after five matches:
+              <center><picture>
+                <img class="img-fluid" src="https://antoniolee-personal.s3.us-east-2.amazonaws.com/media/ideal_1.png">
+              </picture></center>
+              In this scenario, we can clearly group the red results as being higher than the blue results.
+              While there may be some overlapping points which may indicate outliers, we could definitely run a paired t-test on (points earned)/(cost)
+              for each data point above to confirm that there is a significant increase between the two sets.
+              Ideally, if we also had our green data points for form-based swaps, it would be a clear lump in between the blue and red points.
+              <center><picture>
+                <img class="img-fluid" src="https://antoniolee-personal.s3.us-east-2.amazonaws.com/media/ideal_2.png">
+              </picture></center>
+
+              We do see some simulations successfully follow the pattern described above, so why do our results look so different?
+              To find out, we can scrutinize each result and learn something about our algorithm.
+
+          <br><br><h5><b>Each data point presents a different story</b></h5><br>
+
+          Before we delve deeper, let me describe what the current algorithm is doing:
+              <br>
+              <br>1.	Prior to each matchweek, I look for tweets from news sources containing the player’s first and last name.
+              <br>2.	I save the first five results found for each player.
+              <br>3.	I calculate the sentiment of those five tweets, and save the most negative tweet.
+              <br>4.	For the squad you chose, I pull the sentiment values for every player and find the lowest one.
+              <br>5.	For the player with the lowest sentiment value, I replace him.
+              If the lowest sentiment value is zero (neutral) or positive (good), I do not make a replacement.
+              <br>6.	Repeat for next matchweek with the updated squad. <br><br>
+
+          Each data point presents a different story, and many of them reveal weaknesses in our algorithm.
+          However, they also show promise that sentiment analysis could be useful with some improvements.
+          Here are a few examples:
+
+          <br><br><b>1.	False negatives in sentiment analysis </b><br>
+
+          <center><picture>
+                <img class="img-fluid" src="https://antoniolee-personal.s3.us-east-2.amazonaws.com/media/tweet_1.png">
+              </picture></center>
+
+          <br>Certain tweets will be incorrectly classified as negative. In this scenario, ‘slowly firing himself’ caused this sentiment to be classified as negative.
+          However, we know that the tweet above is actually a positive headline.
+          To resolve this, we may want to try using the average sentiment value rather than the minimum.
+          Using an average with a larger sample of tweets will get us closer to the true sentiment, as it will dampen the impacts of false negatives and false positives.<br><br>
+
+           <b>2. Correct sentiment, unfair assessment </b><br>
+
+          <center><picture>
+                <img class="img-fluid" src="https://antoniolee-personal.s3.us-east-2.amazonaws.com/media/tweet_2.png">
+              </picture></center>
+
+          <br>Would you swap a player if his hairstyle was unappealing?  In this scenario, the tweet is correctly negative,
+          but the magnitude of the negativity is very small. Furthermore, the tweet is subjective –
+          many people would say a player’s hairstyle does not impact their performance.
+          If we were to introduce hysteresis on our algorithm, we could define a substitution to be based on
+          the count of negative tweets or the sum of the magnitude of negative tweets over a certain time period, mitigating this issue.
+          <br><br>
+
+          <b>3. Truth vs. speculation </b><br>
+
+          <center><picture>
+                <img class="img-fluid" src="https://antoniolee-personal.s3.us-east-2.amazonaws.com/media/tweet_3.png">
+              </picture></center>
+
+          <br>A lot of sports news is speculation. In this scenario, the player missed out on training,
+          and this was reported to communicate the possibility that he would miss the next match.
+          However, Salah ended up playing, and also scored ten points.
+
+          Certain news organizations and reporters have a higher propensity of reporting stories that may end up being unreliable.
+          Assigning a reliability value to the author and using that to weigh the sentiment values of their tweets may also be effective in improving our algorithm.
+          <br>
+
+
+          <br><br><h5><b>Additional infrastructure required</b></h5><br>
+
+          Aside from improving our algorithm, our results could have looked vastly different had we had the infrastructure to scrape more data for each simulation.
+          Imagine we were evaluating the average sentiment of 20 tweets per player per round rather than taking the minimum sentiment of 5.
+          The former value would handle anomalies and confirm severe headlines much better than the latter.
+          The small matchweek count may also be obscuring the effects of our swapping.
+          The differences of actively switching players would be more pronounced if the simulation ran for a full season,
+          where tweets would catch injuries, transfers, and bans for players effectively.
+          Unfortunately, handling this much data is not easy without the necessary infrastructure.
+          Currently, the free version of Django limits the Postgres database to 10,000 rows. If we have 200 players in our database,
+          and 10 matchweek rows per player, we are at 2000 rows. If we save 5 tweets per matchweek per player, we are already at 10,000 rows!
+          You can see how quickly our data tables will grow if we wanted to simulate a full season, which has 38 matchweeks and over 500 players.
+          Performance would also be impacted. Our ETL process to scrape data can be described by a time complexity of O(player * (number of tweets) * matchweek)
+          – for every player, we scrape a set amount of tweets, and we repeat this for every match week.
+          This is easy to run when all these values are small, but increasing each will take its toll on the server without an increase in processing power and memory.
+
+          <br><br><h5><b>A Path Forward</b></h5><br>
+
+          In addition to the algorithm improvements mentioned earlier, there are a lot of cool opportunities to continue this project.
+          It would be exciting to create a fully-functional bot, which can work real time to manage a squad in the current season.
+          This would mean the algorithm would have to handle more features available in fantasy soccer,
+          such as captaining a player (doubles a player’s points each matchweek), managing a bench (you can have three extra players each round to substitute for free),
+          and playing special ‘chips’ that help you gain more points. Another interesting idea is including other sources of data.
+          Twitter sentiment data can be combined with a lot more, including international fixtures, detailed player statistics per match, and team performance per stadium.
+          It would be exciting to identify which features lead to the best algorithm, and which features are red herrings.
+          <br>
+          <br>
+          For me, this project was a testament to the power of data, but
+
+          encourage you to think about other ways that we could leverage data to predict results for this or any other problem.
+          <br>
+          <br>
+
+          <u><a href="{% url 'blog-home' %}">Return Home</a></u>
+          </p>
+          </div>
+
+        </div>
+      </section><!-- End FPL Simulation - Results and Discussion Section -->
+{% endblock content %}
